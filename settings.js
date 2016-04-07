@@ -1,6 +1,4 @@
 
-var urlencode = require("urlencode");
-
 var internals = {
     cookieSecret: '34jkfshfj=.,;',
     sessionDb: 'sessionDb',
@@ -34,7 +32,7 @@ function composePath(dbName) {
     url += String(internals.port);
     url += '/';
     url += dbName;
-    return urlencode(url);
+    return url;
 }
 
 module.exports = internals;

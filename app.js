@@ -5,8 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var MongoStore = require('connect-mongodb');
+var connect = require('connect');
+// https://www.npmjs.com/package/session-mongoose
+var SessionStore = require('session-mongoose')(connect);
+
 var settings = require('./settings');
+require('./db');
 
 console.log('>>>>: ' + settings.dbUrl());
 console.log('>>>>: ' + settings.sessionDbUrl());
@@ -29,21 +33,21 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+var store = new SessionStore({
+    url: settings.sessionDbUrl(),
+    interval: 120000
+});
 app.use(session({
   resave: false,
   saveUninitialized: true,
   secret: settings.cookieSecret,
   key: settings.sessionDb,
   cookie: {maxAge: settings.defaultExpirationTime},
-  store: MongoStore({
-    db: settings.sessionDb,
-    host: settings.host,
-    port: settings.port
-  })
+  store: store
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-console.log('dirname: ' + __dirname);
 app.use('/', routes);
 app.use('/users', users);
 
@@ -79,6 +83,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
