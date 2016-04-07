@@ -17,6 +17,7 @@
     "session-mongoose": "~0.5.2 ",
     "mongoose": "~4.4.11",
     "morgan": "~1.6.1",
+    "debug": "2.2.0",
     "serve-favicon": "~2.3.0"
   }
 }

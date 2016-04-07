@@ -84,4 +84,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var debug = require('debug')('worker');
+debug('goes to stderr!');
+var info = require('debug')('info');
+info('test man');
 module.exports = app;
+
+
