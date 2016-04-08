@@ -7,7 +7,15 @@ var internals = {
     port: 27017,
     username: '',
     password: '',
-    defaultExpirationTime:  1000 * 60 * 60 * 24 * 14
+    defaultExpirationTime:  1000 * 60 * 60 * 24 * 14,
+    mail_opts: {
+        host: 'smtp.163.com',
+        port: 25,
+        auth: {
+            user: 'appleshitman@163.com',
+            pass: 'shit120'
+        }
+    }
 };
 
 internals.dbUrl = function () {

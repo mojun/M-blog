@@ -11,5 +11,7 @@
     <orderEntry type="library" name="node-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="jquery-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="M-blog node_modules" level="project" />
+    <orderEntry type="library" name="mongoose-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="moment-DefinitelyTyped" level="project" />
   </component>
 </module>

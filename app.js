@@ -1,3 +1,4 @@
+require('./debug-helper');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -10,10 +11,10 @@ var connect = require('connect');
 var SessionStore = require('session-mongoose')(connect);
 
 var settings = require('./settings');
-require('./db');
+require('./models');
 
-console.log('>>>>: ' + settings.dbUrl());
-console.log('>>>>: ' + settings.sessionDbUrl());
+debugInfo('>>>>: ' + settings.dbUrl());
+debugInfo('>>>>: ' + settings.sessionDbUrl());
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -84,10 +85,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var debug = require('debug')('worker');
-debug('goes to stderr!');
-var info = require('debug')('info');
-info('test man');
 module.exports = app;
 
-
+debugError('abc');
