@@ -26,4 +26,4 @@ UserSchema.index({loginname: 1}, {unique: true});
 UserSchema.index({email: 1}, {unique: true});
 UserSchema.index({access_token: 1});
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
