@@ -6,6 +6,8 @@ var eventproxy  = require('eventproxy');
 var tools       = require('../common/tools');
 var mail        = require('../common/mail');
 var User        = require('../proxy/user');
+var utility     = require('utility');
+var settings    = require('../settings');
 
 exports.signup = function (req, res, next) {
     var loginname   = req.body.loginname.toLowerCase();
@@ -61,9 +63,29 @@ debugError('911');
                     }
                     debugInfo('9111');
                     // 发送激活邮件
-                    mail.sendActiveMail(email, '', '');
+                    var token = email + passhash + settings.cookieSecret;
+                    token = utility.md5(token);
+                    mail.sendActiveMail(email, token, loginname);
                 });
             }
         ));
     });
+};
+
+exports.activeAccount = function (req, res, next) {
+    var key = validator.trim(req.query.key);
+    var name = validator.trim(req.query.name);
+
+    User.getUserByLoginName(name, function (err, user) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return next(new Error('[ACTIVE_ACCOUNT] no such user: ' + name));
+        }
+        var passhash = user.pass;
+        if (!user || utility.md5(user.email + user.pass + settings.cookieSecret) !== key) {
+            return 
+        }
+    })
 };

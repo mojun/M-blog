@@ -25,7 +25,11 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, function () {
+  debugInfo('God bless love...');
+  debugInfo('You can debug your app at http://' + server.address() + ':' + server.port);
+  debugInfo('');
+};
 server.on('error', onError);
 server.on('listening', onListening);
 
