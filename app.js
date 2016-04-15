@@ -16,7 +16,8 @@ require('./models');
 debugInfo('>>>>: ' + settings.dbUrl());
 debugInfo('>>>>: ' + settings.sessionDbUrl());
 
-var routes = require('./routes/index');
+var routes = require('./routes/index.js');
+var userRoutes = require('./routes/users.js');
 
 // 生成一个express实例app
 var app = express();
@@ -49,8 +50,14 @@ app.use(session({
   store: store
 }));
 
+app.use(function (req, res, next) {
+  res.locals.title = settings.siteName;
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
+app.use('/users/', userRoutes);
 
 
 // catch 404 and forward to error handler
@@ -72,16 +79,22 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
+
+} else {
+  // production error handler
+// no stacktraces leaked to user
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: {}
+    });
+  });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
+debugInfo('你目前的环境是: ' + app.get('env'));
 
 module.exports = app;
+
+
+var kiss = require('./test/kiss.js');

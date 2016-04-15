@@ -4,33 +4,29 @@
     <meta charset="UTF-8" />
     <title>M-Blog</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 
 <body>
-<header>
-    <h1><%= title %></h1>
-</header>
 
-<nav>
-    <span><a title="主页" href="/">home</a></span>
-    <span><a title="博客" href="/blog">blog</a></span>
-    <% if (locals.user) { %>
-        <span><a title="发表" href="/post">post</a> </span>
-        <span><a title="登出" href="/logout">logout</a></span>
-    <% } else { %>
-        <span><a title="登录" href="/login">login</a> </span>
-        <span><a title="注册" href="/reg">register</a> </span>
-    <% } %>
-    <span><form action="search" method="GET">
-        <input type="text" name="keyword" placeholder="SEARCH" class="search" />
-    </form> </span>
-</nav>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="/">Home</a> </li>
+                <li role="presentation"><a href="/blog">Blog</a></li>
 
-<article>
-    <% if (locals.success) { %>
-        <div><%= success %></div>
-    <% } %>
-    <% if (locals.error) { %>
-        <div><%= error %></div>
-    <% } %>
+            </ul>
+        </nav>
+        <h3 class="text-muted">
+            <%= locals.title %>
+        </h3>
+    </div>
+
+    <div class="bodyer">
+
+
+
 

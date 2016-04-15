@@ -9,12 +9,16 @@ var User        = require('../proxy/user');
 var utility     = require('utility');
 var settings    = require('../settings');
 
+exports.showSignup = function (req, res, next) {
+    res.render('signup');
+};
+
 exports.signup = function (req, res, next) {
     var loginname   = req.body.loginname.toLowerCase();
     var email       = req.body.email.toLowerCase();
     var pass        = req.body.pass;
     var rePass      = req.body.re_pass;
-debugError('911');
+
     var ep = new eventproxy();
     ep.fail(next);
     ep.on('prop_err', function (msg) {
@@ -61,7 +65,6 @@ debugError('911');
                     if (err) {
                         return next(err);
                     }
-                    debugInfo('9111');
                     // 发送激活邮件
                     var token = email + passhash + settings.cookieSecret;
                     token = utility.md5(token);
@@ -85,7 +88,18 @@ exports.activeAccount = function (req, res, next) {
         }
         var passhash = user.pass;
         if (!user || utility.md5(user.email + user.pass + settings.cookieSecret) !== key) {
-            return 
+            return res.render('notify', {error: '信息有误，帐号无法被激活。'});
         }
-    })
+
+        if (user.active) {
+            return res.render('notify', {error: '帐号已经是激活状态。'});
+        }
+        user.active = true;
+        user.save(function (err) {
+            if (err) {
+                return next(err);
+            }
+            res.render('notify', {success: '帐号已被激活，请登录'});
+        });
+    });
 };

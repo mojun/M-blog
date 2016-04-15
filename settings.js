@@ -2,7 +2,7 @@
 var internals = {
     cookieSecret: '34jkfshfj=.,;',
     sessionDb: 'sessionDb',
-    siteName: 'MJBlog',
+    siteName: 'xx管理系统',
     db: 'blog',
     host: 'localhost',
     port: 27017,

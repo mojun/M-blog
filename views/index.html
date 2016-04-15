@@ -1,3 +1,11 @@
 <%- include header %>
-<h3>home</h3>
+<div class="jumbotron">
+    <h1>欢迎来到博客系统</h1>
+    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+    <% if(locals.user){ %>
+    <p><%= user.name %></p>
+    <% } else { %>
+    <p><a class="btn btn-lg btn-success" href="#" role="button">立即注册</a></p>
+    <% } %>
+</div>
 <%- include footer %>
