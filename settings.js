@@ -1,6 +1,7 @@
 
 var internals = {
     cookieSecret: '34jkfshfj=.,;',
+    sessionSecret: 'j3kjfdksf=`f.,',
     sessionDb: 'sessionDb',
     siteName: 'xx管理系统',
     db: 'blog',

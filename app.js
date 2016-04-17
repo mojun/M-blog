@@ -7,15 +7,17 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var connect = require('connect');
+var flash = require('express-flash');
 // https://www.npmjs.com/package/session-mongoose
 var SessionStore = require('session-mongoose')(connect);
 
-var settings = require('./settings');
+var settings = require('./settings.js');
 require('./models');
 
 debugInfo('>>>>: ' + settings.dbUrl());
 debugInfo('>>>>: ' + settings.sessionDbUrl());
 
+var authMiddleware = require('./middlewares/auth.js');
 var routes = require('./routes/index.js');
 var userRoutes = require('./routes/users.js');
 
@@ -44,11 +46,13 @@ var store = new SessionStore({
 app.use(session({
   resave: false,
   saveUninitialized: true,
-  secret: settings.cookieSecret,
+  secret: settings.sessionSecret,
   key: settings.sessionDb,
   cookie: {maxAge: settings.defaultExpirationTime},
   store: store
 }));
+
+app.use(flash());
 
 app.use(function (req, res, next) {
   res.locals.title = settings.siteName;
@@ -58,6 +62,8 @@ app.use(function (req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users/', userRoutes);
+
+app.use(authMiddleware.authUser);
 
 
 // catch 404 and forward to error handler
@@ -98,3 +104,4 @@ module.exports = app;
 
 
 var kiss = require('./test/kiss.js');
+

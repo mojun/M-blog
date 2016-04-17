@@ -1,0 +1,14 @@
+<div id="#flash-messages">
+    <% if(locals.messages.info) { %>
+        <%- include('flash-message',{message: locals.messages.info, type:'info'})%>
+    <% } %>
+    <% if(locals.messages.success) { %>
+    <%- include('flash-message',{message: locals.messages.success, type:'success'})%>
+    <% } %>
+    <% if(locals.messages.warning) { %>
+    <%- include('flash-message',{message: locals.messages.warning, type:'warning'})%>
+    <% } %>
+    <% if(locals.messages.error) { %>
+    <%- include('flash-message',{message: locals.messages.error, type:'error'})%>
+    <% } %>
+</div>
