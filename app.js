@@ -67,10 +67,11 @@ app.use(authMiddleware.authUser);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(req, res) {
   var err = new Error('Not Found');
   err.status = 404;
-  next(err);
+  res.render('404');
+  // next(err);
 });
 
 // error handlers

@@ -21,7 +21,7 @@ exports.authUser = function (req, res, next) {
     var ep = new eventproxy();
     ep.fail(next);
 
-    res.locals.current_user = nil;
+    res.locals.current_user = null;
 
     ep.all('get_user', function (user) {
         if (!user) {

@@ -75,3 +75,8 @@ body {
   padding-right: 0 !important;
  }
 
+.jumbotron a.btn {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+

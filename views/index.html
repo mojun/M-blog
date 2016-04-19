@@ -5,7 +5,7 @@
     <% if(locals.user){ %>
     <p><%= user.name %></p>
     <% } else { %>
-    <p><a class="btn btn-lg btn-success" href="#" role="button">立即注册</a></p>
+    <p><a class="btn btn-lg btn-success" href="/users/signup" role="button">立即注册</a><a class="btn btn-lg btn-success" href="/users/login">立即登录</a> </p>
     <% } %>
 </div>
 <%- include footer %>
